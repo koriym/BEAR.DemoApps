@@ -11,9 +11,7 @@
             "email": "akihito.koriyama@gmail.com"
         }
     ],
-	"config": {
-	 	"vendor-dir": "apps"
-	 },
+    "target-dir": "apps",
     "require": {
     }
 }
