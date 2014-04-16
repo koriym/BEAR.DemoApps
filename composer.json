@@ -1,0 +1,19 @@
+{
+    "name": "bear/demo-apps",
+    "description": "Demo.* applications for BEAR.Package",
+    "keywords": [
+        "BEAR.Sunday"
+    ],
+    "license": "BSD-3-Clause",
+    "authors": [
+        {
+            "name": "Akihito Koriyama",
+            "email": "akihito.koriyama@gmail.com"
+        }
+    ],
+	"config": {
+	 	"vendor-dir": "apps"
+	 },
+    "require": {
+    }
+}
