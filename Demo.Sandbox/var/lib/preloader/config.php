@@ -21,6 +21,7 @@ $config
     ->addExclusiveFilter('/PHPParser_*/')
     ->addExclusiveFilter('/TokenParser/')
     ->addExclusiveFilter('/RayAop/')
-    ->addExclusiveFilter('/src\/Resource/');
+    ->addExclusiveFilter('/src\/Resource/')
+    ->addExclusiveFilter('/Smarty/');
 
 return $config;
