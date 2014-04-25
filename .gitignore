@@ -1,4 +1,7 @@
 .idea
-buld
-
+buld/
+tmp/
+build/
+xhprof_html/
 /vendor/
+*.db
