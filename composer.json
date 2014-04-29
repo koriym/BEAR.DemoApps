@@ -12,8 +12,9 @@
         }
     ],
     "config": {
-	    "vendor-dir": "apps"
+      "vendor-dir": "apps"
     },
     "require": {
+      "robmorgan/phinx": "*"
     }
 }

@@ -6,3 +6,4 @@ xhprof_html/
 /vendor/
 *.db
 *.log
+apps/
