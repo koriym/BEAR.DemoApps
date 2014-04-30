@@ -6,7 +6,7 @@ environments:
   default_database: development
   development:
     adapter: sqlite
-    name: ./var/db/posts
+    name: ../posts
 
 
 # for MySQL
