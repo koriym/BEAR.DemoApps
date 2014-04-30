@@ -20,7 +20,6 @@ class AppModule extends AbstractModule
         $this->bind()->annotatedWith('app_name')->toInstance('Demo\Helloworld');
         $this->bind('BEAR\Sunday\Extension\Application\AppInterface')->to('Demo\Helloworld\App');
         $this->install(new SundayModule\Framework\FrameworkModule);
-        $this->install(new SundayModule\Resource\ResourceCacheModule);
         $this->install(new SundayModule\Constant\NamedModule(['tmp_dir' => sys_get_temp_dir()]));
         $this->install(new InjectorModule($this));
     }
