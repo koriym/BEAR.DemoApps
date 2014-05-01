@@ -11,8 +11,11 @@
             "email": "akihito.koriyama@gmail.com"
         }
     ],
-    "config": {
-      "vendor-dir": "apps"
+    "autoload": {
+        "psr-4": {
+            "Demo\\Helloworld\\": "Demo.Helloworld/src",
+            "Demo\\Sandbox\\": "Demo.Sandbox/src"
+        }
     },
     "require": {
     }
