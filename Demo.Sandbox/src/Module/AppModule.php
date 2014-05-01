@@ -33,8 +33,7 @@ class AppModule extends AbstractModule
      */
     protected function configure()
     {
-        $appDir = dirname(dirname(__DIR__));
-        $this->install(new StandardPackageModule($appDir, $this->context));
+        $this->install(new StandardPackageModule('Demo\Sandbox', $this->context, dirname(dirname(__DIR__))));
 
         // override view package (default:Twig)
         $this->install(new SmartyModule($this));
