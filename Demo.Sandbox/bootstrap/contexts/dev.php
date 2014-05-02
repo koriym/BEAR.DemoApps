@@ -42,6 +42,8 @@ $app = require $appDir . '/bootstrap/instance.php';
 $devHtml = (new Dev)
     ->iniSet()
     ->loadDevFunctions()
+    ->registerErrorHandler()
+    //->registerWhoopsErrorHandler()
     ->registerFatalErrorHandler()
     ->registerExceptionHandler("{$appDir}/var/log")
     ->registerSyntaxErrorEdit()
