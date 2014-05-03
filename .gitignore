@@ -3,7 +3,7 @@ buld/
 tmp/
 build/
 xhprof_html/
-/vendor/
+vendor/
 *.db
 *.log
 apps/
