@@ -16,7 +16,7 @@ require_once 'bootstrap/autoload.php';
 (new Dev())->loadDevFunctions();
 
 // set the application path into the globals so we can access it in the tests.
-$GLOBALS['APP_DIR'] = dirname(__DIR__);
+$_ENV['APP_DIR'] = dirname(__DIR__);
 
 // set the resource client
 $GLOBALS['RESOURCE'] = Injector::create([new AppModule('test')])->getInstance('\BEAR\Resource\ResourceInterface');

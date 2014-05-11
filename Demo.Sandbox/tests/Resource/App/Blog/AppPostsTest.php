@@ -17,7 +17,7 @@ class AppPostsTest extends \PHPUnit_Extensions_Database_TestCase
      */
     public function getConnection()
     {
-        $pdo = require $GLOBALS['APP_DIR'] . '/tests/scripts/db.php';
+        $pdo = require $_ENV['APP_DIR'] . '/tests/scripts/db.php';
 
         return $this->createDefaultDBConnection($pdo, 'sqlite');
     }
@@ -27,7 +27,7 @@ class AppPostsTest extends \PHPUnit_Extensions_Database_TestCase
      */
     public function getDataSet()
     {
-        $seed = $this->createFlatXmlDataSet($GLOBALS['APP_DIR'] . '/tests/mock/seed.xml');
+        $seed = $this->createFlatXmlDataSet($_ENV['APP_DIR'] . '/tests/mock/seed.xml');
         return $seed;
     }
 
