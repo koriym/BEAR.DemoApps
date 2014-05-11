@@ -12,9 +12,6 @@ chdir(dirname(__DIR__));
 // load
 require_once 'bootstrap/autoload.php';
 
-// enable debug print p($var);
-(new Dev())->loadDevFunctions();
-
 // set the application path into the globals so we can access it in the tests.
 $_ENV['APP_DIR'] = dirname(__DIR__);
 
