@@ -15,5 +15,6 @@ return [
         'now' => '\Demo\Sandbox\Params\FakeTime'
     ],
     'dev' => [],
+    'api' => [],
     'stub' => [],
 ];
