@@ -119,7 +119,7 @@ class PostsTest extends \PHPUnit_Extensions_Database_TestCase
         $resourceObject = $this->resource
             ->put
             ->uri('app://self/blog/posts')
-            ->withQuery(['id' => '1', 'title' => 'edit'])
+            ->withQuery(['id' => 1, 'title' => 'modified_title', 'body' => 'modified_body'])
             ->eager
             ->request();
 
@@ -128,17 +128,10 @@ class PostsTest extends \PHPUnit_Extensions_Database_TestCase
         $body = $this->resource
             ->get
             ->uri('app://self/blog/posts')
-            ->withQuery(
-                [
-                    'id' => 1,
-                    'title' => 'modified_title',
-                    'body' => 'modified_body'
-                ]
-            )
+            ->withQuery(['id' => '1'])
             ->eager
             ->request()
             ->body;
-
         $this->assertSame('modified_title', $body['title']);
     }
 
