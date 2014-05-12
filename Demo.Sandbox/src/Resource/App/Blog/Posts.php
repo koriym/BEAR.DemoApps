@@ -2,6 +2,7 @@
 namespace Demo\Sandbox\Resource\App\Blog;
 
 use BEAR\Package\Module\Database\Dbal\Setter\DbSetterTrait;
+use BEAR\Resource\Header;
 use BEAR\Resource\ResourceObject;
 use BEAR\Resource\Code;
 use BEAR\Resource\Link;
@@ -83,8 +84,8 @@ class Posts extends ResourceObject
         //
         $lastId = $this->db->lastInsertId('id');
         $this->code = Code::CREATED;
-        $this->links['new_post'] = [Link::HREF => "app://self/posts/post?id={$lastId}"];
-        $this->links['page_new_post'] = [Link::HREF => "page://self/blog/posts/post?id={$lastId}"];
+        $this->headers[Header::LOCATION] = "app://self/posts/post?id={$lastId}";
+        $this->headers[Header::X_ID] = $lastId;
 
         return $this;
     }

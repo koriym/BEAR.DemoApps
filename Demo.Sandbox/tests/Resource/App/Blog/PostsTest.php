@@ -1,9 +1,11 @@
 <?php
+
 namespace Sandbox\tests\Resource\App\Blog;
 
-use Ray\Di\Injector;
+use BEAR\Resource\Code;
+use BEAR\Resource\Header;
 
-class AppPostsTest extends \PHPUnit_Extensions_Database_TestCase
+class PostsTest extends \PHPUnit_Extensions_Database_TestCase
 {
     /**
      * Resource client
@@ -42,87 +44,68 @@ class AppPostsTest extends \PHPUnit_Extensions_Database_TestCase
      *
      * @test
      */
-    public function resource()
+    public function testOnGet()
     {
         // resource request
         $resource = $this->resource->get->uri('app://self/blog/posts')->eager->request();
         $this->assertSame(200, $resource->code);
+        $this->assertInternalType('array', $resource->body);
 
         return $resource;
     }
 
     /**
-     * What does page have ?
-     *
-     * @depends resource
-     */
-    public function graph($resource)
-    {
-    }
-
-    /**
-     * Type ?
-     *
-     * @depends resource
-     * @test
-     */
-    public function type($resource)
-    {
-        $this->assertInternalType('array', $resource->body);
-    }
-
-    /**
      * Renderable ?
      *
-     * @depends resource
-     * @test
+     * @depends testOnGet
      */
-    public function render($resource)
+    public function testOnGetHtml($resource)
     {
         $html = (string)$resource;
         $this->assertInternalType('string', $html);
     }
 
-    /**
-     * @test
-     */
-    public function post()
+    public function testOnPost()
     {
         // inc 1
         $before = $this->getConnection()->getRowCount('posts');
+        $resourceObject = $this->resource
+            ->post
+            ->uri('app://self/blog/posts')
+            ->withQuery(['title' => 'test_title', 'body' => 'test_body'])
+            ->eager
+            ->request();
+
+        $this->assertSame(Code::CREATED, $resourceObject->code);
+        $this->assertArrayHasKey(Header::LOCATION, $resourceObject->headers);
+        $this->assertArrayHasKey(Header::X_ID, $resourceObject->headers);
+        $this->assertEquals($before + 1, $this->getConnection()->getRowCount('posts'), "failed to add");
+    }
+
+    /**
+     * @depends testOnPost
+     */
+    public function testOnPostNewRow()
+    {
         $this->resource
             ->post
             ->uri('app://self/blog/posts')
             ->withQuery(['title' => 'test_title', 'body' => 'test_body'])
             ->eager
             ->request();
-        $this->assertEquals($before + 1, $this->getConnection()->getRowCount('posts'), "failed to add post");
 
         // new post
         $entries = $this->resource->get->uri('app://self/blog/posts')->withQuery([])->eager->request()->body;
         $body = array_pop($entries);
 
-        return $body;
-    }
-
-    /**
-     * @test
-     * @depends post
-     */
-    public function postData($body)
-    {
         $this->assertEquals('test_title', $body['title']);
         $this->assertEquals('test_body', $body['body']);
     }
 
-    /**
-     * @test
-     */
-    public function delete()
+    public function testOnDelete()
     {
-        // dec 1
         $before = $this->getConnection()->getRowCount('posts');
         $this->resource->delete->uri('app://self/blog/posts')->withQuery(['id' => 1])->eager->request();
-        $this->assertEquals($before - 1, $this->getConnection()->getRowCount('posts'), "failed to delete post");
+        $this->assertEquals($before - 1, $this->getConnection()->getRowCount('posts'), "failed to delete");
     }
 }
