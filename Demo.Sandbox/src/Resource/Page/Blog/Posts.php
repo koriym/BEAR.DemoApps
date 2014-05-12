@@ -2,9 +2,8 @@
 
 namespace Demo\Sandbox\Resource\Page\Blog;
 
-use BEAR\Resource\ResourceObject as Page;
+use BEAR\Resource\ResourceObject;
 use BEAR\Sunday\Inject\ResourceInject;
-use BEAR\Sunday\Annotation;
 use BEAR\Sunday\Annotation\Cache;
 
 /**
@@ -12,7 +11,7 @@ use BEAR\Sunday\Annotation\Cache;
  *
  * Blog entries listed with edit/delete button
  */
-class Posts extends Page
+class Posts extends ResourceObject
 {
     use ResourceInject;
 

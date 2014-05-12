@@ -36,7 +36,7 @@ class PostsTest extends \PHPUnit_Extensions_Database_TestCase
     protected function setUp()
     {
         parent::setUp();
-        $this->resource = clone $GLOBALS['RESOURCE'];
+        $this->resource = $GLOBALS['RESOURCE'];
     }
 
     /**
@@ -63,6 +63,18 @@ class PostsTest extends \PHPUnit_Extensions_Database_TestCase
     {
         $html = (string)$resource;
         $this->assertInternalType('string', $html);
+    }
+
+    public function testOnGetItem()
+    {
+        $resource = $this->resource
+            ->get
+            ->uri('app://self/blog/posts')
+            ->withQuery(['id' => 1])
+            ->eager
+            ->request();
+
+        $this->assertSame('1', $resource->body['id']);
     }
 
     public function testOnPost()
@@ -100,6 +112,34 @@ class PostsTest extends \PHPUnit_Extensions_Database_TestCase
 
         $this->assertEquals('test_title', $body['title']);
         $this->assertEquals('test_body', $body['body']);
+    }
+
+    public function testOnPut()
+    {
+        $resourceObject = $this->resource
+            ->put
+            ->uri('app://self/blog/posts')
+            ->withQuery(['id' => '1', 'title' => 'edit'])
+            ->eager
+            ->request();
+
+        $this->assertSame(Code::NO_CONTENT, $resourceObject->code);
+
+        $body = $this->resource
+            ->get
+            ->uri('app://self/blog/posts')
+            ->withQuery(
+                [
+                    'id' => 1,
+                    'title' => 'modified_title',
+                    'body' => 'modified_body'
+                ]
+            )
+            ->eager
+            ->request()
+            ->body;
+
+        $this->assertSame('modified_title', $body['title']);
     }
 
     public function testOnDelete()
