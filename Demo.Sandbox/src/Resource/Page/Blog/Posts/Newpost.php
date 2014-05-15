@@ -5,7 +5,9 @@ namespace Demo\Sandbox\Resource\Page\Blog\Posts;
 use BEAR\Resource\ResourceObject as Page;
 use BEAR\Resource\Link;
 use BEAR\Sunday\Annotation\Form;
+use BEAR\Sunday\Inject\AInject;
 use BEAR\Sunday\Inject\ResourceInject;
+use BEAR\Resource\Header;
 
 /**
  * New post page
@@ -13,6 +15,8 @@ use BEAR\Sunday\Inject\ResourceInject;
 class Newpost extends Page
 {
     use ResourceInject;
+    use AInject;
+
 
     /**
      * @var array
@@ -27,7 +31,8 @@ class Newpost extends Page
      * @var array
      */
     public $links = [
-        'back' => [Link::HREF => 'page://self/blog/posts']
+        'back' => [Link::HREF => 'page://self/blog/posts'],
+        'created' => [Link::HREF => 'page://self/blog/posts/post{?id}', Link::TEMPLATED => true]
     ];
 
     /**
@@ -58,7 +63,7 @@ class Newpost extends Page
             ->request();
 
         $this->code = $this['code'] = $response->code;
-        $this->links += $response->links;
+        $this['id'] = $response->headers[Header::X_ID];
 
         return $this;
     }

@@ -11,8 +11,8 @@
     {elseif $code == 201}
         <div class="alert alert-success">Successfully posted.</div>
         <ul>
-            <li><a href="{href rel="page_new_post"}">See new post</a></li>
-            <li><a href="{href rel="back"}">Back to list</a></li>
+            <li><a href="{href rel=created}"> See new post</a></li>
+            <li><a href="{href rel=back}"> Back to list</a></li>
         </ul>
     {else}
         <div class="alert alert-error">Something wrong.</div>
