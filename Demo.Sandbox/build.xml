@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<project name="BEAR" default="build">
+<project name="BEAR.Skeleton" default="build">
     <property name="composer.path" value="${basedir}/composer.phar" />
-    <property name="app.path" value="../${basedir}" />
     <available property="composer.exists" file="${composer.path}" />
 
-    <target name="build" depends="prepare, test, report"/>
+    <target name="build" depends="require, prepare, test, report"/>
     <target name="build-parallel" depends="prepare,lint,tools-parallel,phpunit,phpcb"/>
     <target name="test" depends="lint,phpunit"/>
     <target name="report" depends="phploc,pdepend,phpmd-ci,phpcs-ci,phpcpd,phpcb,apigen,phpdox"/>
@@ -65,12 +64,9 @@
         <delete dir="${basedir}/build/coverage"/>
         <delete dir="${basedir}/build/logs"/>
         <delete dir="${basedir}/build/pdepend"/>
-        <exec executable="php">
-            <arg value="${basedir}/bin/clear.php"/>
-        </exec>
     </target>
 
-    <target name="prepare" depends="clean" description="Prepare for build">
+    <target name="prepare" depends="clean, vendor" description="Prepare for build">
         <mkdir dir="${basedir}/build/api"/>
         <mkdir dir="${basedir}/build/docblox"/>
         <mkdir dir="${basedir}/build/code-browser"/>
@@ -95,7 +91,12 @@
         <apply executable="php" failonerror="true">
             <arg value="-l" />
 
-            <fileset dir="${basedir}/">
+            <fileset dir="${basedir}/src">
+                <include name="**/*.php" />
+                <modified />
+            </fileset>
+
+            <fileset dir="${basedir}/tests">
                 <include name="**/*.php" />
                 <modified />
             </fileset>
@@ -124,7 +125,7 @@
         <exec executable="phpmd">
             <arg path="${basedir}/src" />
             <arg value="text" />
-            <arg value="${basedir}/build/phpmd.xml" />
+            <arg value="${basedir}/phpmd.xml" />
         </exec>
     </target>
 
@@ -141,12 +142,8 @@
     <target name="phpcs"
             description="Find coding standard violations using PHP_CodeSniffer and print human readable output. Intended for usage on the command line before committing.">
         <exec executable="phpcs">
-            <arg value="--standard=${basedir}/build/phpcs.xml" />
+            <arg value="--standard=${basedir}/phpcs.xml" />
             <arg path="${basedir}/src" />
-        </exec>
-        <exec executable="phpcs">
-            <arg value="--standard=${basedir}/build/phpcs.xml" />
-            <arg path="${basedir}/Interceptor" />
         </exec>
     </target>
 
@@ -154,7 +151,7 @@
         <exec executable="phpcs" output="/dev/null">
             <arg value="--report=checkstyle" />
             <arg value="--report-file=${basedir}/build/logs/checkstyle.xml" />
-            <arg value="--standard=${basedir}/build/phpcs.xml" />
+            <arg value="--standard=${basedir}/phpcs.xml" />
             <arg path="${basedir}/src" />
         </exec>
     </target>
