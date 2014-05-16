@@ -6,15 +6,15 @@
         <li><a href="/blog/posts">Blog</a> <span class="divider">/</span></li>
         <li class="active">New Post</li>
     </ul>
-    {if $code == 200}
+    {if $resource->code == 200}
         {include file="Form/Post.tpl"}
-    {elseif $code == 201}
+    {elseif $resource->code == 201}
         <div class="alert alert-success">Successfully posted.</div>
         <ul>
             <li><a href="{href rel=created}"> See new post</a></li>
             <li><a href="{href rel=back}"> Back to list</a></li>
         </ul>
     {else}
-        <div class="alert alert-error">Something wrong.</div>
+        <div class="alert alert-error">Unknown code</div>
     {/if}
 {/block}
