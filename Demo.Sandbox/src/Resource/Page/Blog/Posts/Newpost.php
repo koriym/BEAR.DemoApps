@@ -23,8 +23,7 @@ class Newpost extends Page
      */
     public $body = [
         'errors' => ['title' => '', 'body' => ''],
-        'submit' => ['title' => '', 'body' => ''],
-        'code' => 200
+        'submit' => ['title' => '', 'body' => '']
     ];
 
     /**
@@ -32,7 +31,8 @@ class Newpost extends Page
      */
     public $links = [
         'back' => [Link::HREF => 'page://self/blog/posts'],
-        'created' => [Link::HREF => 'page://self/blog/posts/post{?id}', Link::TEMPLATED => true]
+        'created' => [Link::HREF => 'page://self/blog/posts/post{?id}', Link::TEMPLATED => true],
+        'create' => [Link::HREF => 'app://self/blog/posts']
     ];
 
     /**
@@ -51,11 +51,10 @@ class Newpost extends Page
      */
     public function onPost($title, $body)
     {
-        // create post
+        $uri = $this->links['crate'][Link::HREF];
         $response = $this
             ->resource
-            ->post
-            ->uri('app://self/blog/posts')
+            ->uri($uri)
             ->withQuery(
                 ['title' => $title, 'body' => $body]
             )
