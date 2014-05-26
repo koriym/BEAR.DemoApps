@@ -6,6 +6,7 @@ use BEAR\Resource\ResourceObject as Page;
 use BEAR\Sunday\Inject\ResourceInject;
 use BEAR\Sunday\Annotation\Cache;
 use Ray\Di\Di\Inject;
+use BEAR\Resource\Annotation\Embed;
 
 /**
  * BLog post page
@@ -28,18 +29,10 @@ class Post extends Page
      * @param int $id
      *
      * @Cache(5)
+     * @Embed(rel="post", src="app://self/blog/posts{?id}")
      */
     public function onGet($id)
     {
-        $this['post'] = $this
-            ->resource
-            ->get
-            ->uri('app://self/blog/posts')
-            ->withQuery(
-                ['id' => $id]
-            )->eager
-            ->request()
-            ->body;
         return $this;
     }
 
