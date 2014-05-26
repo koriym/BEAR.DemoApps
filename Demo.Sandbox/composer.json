@@ -1,13 +1,11 @@
 {
     "name":"demo/sandbox",
     "require": {
-        "bear/package": "dev-develop"
+        "bear/package": "~0.10@dev"
     },
     "require-dev": {
-        "bear/dev-package": "dev-master"
+        "bear/dev-package": "~0.2@dev"
     },
-    "minimum-stability": "dev",
-    "prefer-stable": true,
     "autoload":{
         "classmap": ["src/"]
     }
