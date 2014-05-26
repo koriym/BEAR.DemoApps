@@ -4,8 +4,8 @@ namespace Demo\Sandbox\Resource\Page\Blog\Posts;
 
 use BEAR\Resource\ResourceObject as Page;
 use BEAR\Sunday\Inject\ResourceInject;
+use BEAR\Resource\Annotation\Link;
 use BEAR\Sunday\Annotation\Cache;
-use Ray\Di\Di\Inject;
 use BEAR\Resource\Annotation\Embed;
 
 /**
@@ -14,6 +14,10 @@ use BEAR\Resource\Annotation\Embed;
 class Post extends Page
 {
     use ResourceInject;
+
+    public $link = [
+        'delete' => [Link::HREF => 'app://self/blog/posts']
+    ];
 
     /**
      * @var array
@@ -44,9 +48,10 @@ class Post extends Page
     public function onDelete($id)
     {
         // delete
+        $deleteUri = $this->links['delete'][Link::HREF];
         $this->resource
             ->delete
-            ->uri('app://self/blog/posts')
+            ->uri($deleteUri)
             ->withQuery(['id' => $id])
             ->eager
             ->request();
