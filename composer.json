@@ -1,4 +1,4 @@
-{
+	{
     "name": "bear/demo-apps",
     "description": "Demo.* applications for BEAR.Package",
     "keywords": [
@@ -18,5 +18,10 @@
         }
     },
     "require": {
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "0.1.x-dev"
+        }
     }
 }
