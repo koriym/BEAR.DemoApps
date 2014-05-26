@@ -3,40 +3,41 @@
 namespace Demo\Sandbox\Resource\Page\Blog\Posts;
 
 use BEAR\Resource\ResourceObject as Page;
-use BEAR\Sunday\Annotation\Form;
 use BEAR\Sunday\Inject\ResourceInject;
+use BEAR\Resource\Annotation\Link;
+use BEAR\Resource\Code;
+use BEAR\Sunday\Annotation\Form;
+use BEAR\Resource\Annotation\Embed;
+
 
 class Edit extends Page
 {
     use ResourceInject;
 
+    public $links = [
+        'update' => [Link::HREF => 'app://self/blog/posts'],
+        'next' => [Link::HREF => '/blog/posts']
+    ];
+
     /**
      * @var array
      */
     public $body = [
-        'errors' => ['title' => '', 'body' => ''],
-        'submit' => ['title' => '', 'body' => '']
+        'errors' => ['title' => '', 'body' => '']
     ];
 
     /**
-     * @param $id
+     * @Embed(rel="submit", src="app://self/blog/posts{?id}")
      */
     public function onGet($id)
     {
-        $this['submit'] = $this->resource
-            ->get
-            ->uri('app://self/blog/posts')
-            ->withQuery(['id' => $id])
-            ->eager
-            ->request()
-            ->body;
         $this['id'] = $id;
 
         return $this;
     }
 
     /**
-     * @param int $id
+     * @param int    $id
      * @param string $title
      * @param string $body
      *
@@ -44,17 +45,19 @@ class Edit extends Page
      */
     public function onPut($id, $title, $body)
     {
-        // create post
+        $this['id'] = $id;
+        // update post
+        $updateUri = $this->links['update'][Link::HREF];
         $this->resource
             ->put
-            ->uri('app://self/blog/posts')
+            ->uri($updateUri)
             ->withQuery(['id' => $id, 'title' => $title, 'body' => $body])
             ->eager
             ->request();
 
         // redirect
-        $this->code = 303;
-        $this->headers = ['Location' => '/blog/posts'];
+        $this->code = Code::SEE_OTHER;
+        $this->headers = ['Location' => $this->links['next'][Link::HREF]];
 
         return $this;
     }
