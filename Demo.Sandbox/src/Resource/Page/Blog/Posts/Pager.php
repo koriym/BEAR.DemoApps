@@ -2,13 +2,13 @@
 
 namespace Demo\Sandbox\Resource\Page\Blog\Posts;
 
-use BEAR\Resource\ResourceObject as Page;
+use BEAR\Resource\ResourceObject;
 use BEAR\Sunday\Inject\ResourceInject;
 
 /**
  * Blog entry pager page
  */
-class Pager extends Page
+class Pager extends ResourceObject
 {
     use ResourceInject;
 
