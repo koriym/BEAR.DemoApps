@@ -2,31 +2,19 @@
 
 namespace Demo\Sandbox\Resource\Page\Blog\Posts;
 
-use BEAR\Resource\ResourceObject as Page;
+use BEAR\Resource\Code;
+use BEAR\Resource\ResourceObject;
 use BEAR\Sunday\Inject\ResourceInject;
 use BEAR\Resource\Annotation\Link;
 use BEAR\Sunday\Annotation\Cache;
 use BEAR\Resource\Annotation\Embed;
 
-/**
- * BLog post page
- */
-class Post extends Page
+class Post extends ResourceObject
 {
     use ResourceInject;
 
     public $link = [
         'delete' => [Link::HREF => 'app://self/blog/posts']
-    ];
-
-    /**
-     * @var array
-     */
-    public $body = [
-        'post' => [
-            'title' => '',
-            'body' => ''
-        ],
     ];
 
     /**
@@ -41,8 +29,6 @@ class Post extends Page
     }
 
     /**
-     * Delete entry
-     *
      * @param int $id entry id
      */
     public function onDelete($id)
@@ -55,10 +41,8 @@ class Post extends Page
             ->withQuery(['id' => $id])
             ->eager
             ->request();
+        $this->code = Code::NO_CONTENT;
 
-        // no content
-        $this->code = 204;
         return $this;
     }
-
 }
