@@ -51,7 +51,7 @@ class Newpost extends Page
      */
     public function onPost($title, $body)
     {
-        $uri = $this->links['crate'][Link::HREF];
+        $uri = $this->links['create'][Link::HREF];
         $response = $this
             ->resource
             ->uri($uri)
