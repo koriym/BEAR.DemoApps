@@ -2,7 +2,7 @@
 
 namespace Demo\Sandbox\Resource\Page\Blog\Posts;
 
-use BEAR\Resource\ResourceObject as Page;
+use BEAR\Resource\ResourceObject;
 use BEAR\Sunday\Inject\ResourceInject;
 use BEAR\Resource\Annotation\Link;
 use BEAR\Resource\Code;
@@ -10,7 +10,7 @@ use BEAR\Sunday\Annotation\Form;
 use BEAR\Resource\Annotation\Embed;
 
 
-class Edit extends Page
+class Edit extends ResourceObject
 {
     use ResourceInject;
 

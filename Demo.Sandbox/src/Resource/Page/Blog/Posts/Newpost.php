@@ -2,17 +2,17 @@
 
 namespace Demo\Sandbox\Resource\Page\Blog\Posts;
 
-use BEAR\Resource\ResourceObject as Page;
+use BEAR\Resource\ResourceObject;
 use BEAR\Resource\Annotation\Link;
-use BEAR\Sunday\Annotation\Form;
 use BEAR\Sunday\Inject\AInject;
 use BEAR\Sunday\Inject\ResourceInject;
 use BEAR\Resource\Header;
+use BEAR\Sunday\Annotation\Form;
 
 /**
  * New post page
  */
-class Newpost extends Page
+class Newpost extends ResourceObject
 {
     use ResourceInject;
 
