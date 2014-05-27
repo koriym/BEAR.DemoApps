@@ -3,6 +3,7 @@
 namespace Demo\Sandbox\Resource\Page\Blog\Posts;
 
 use BEAR\Resource\Code;
+use BEAR\Resource\Header;
 use BEAR\Resource\ResourceObject;
 use BEAR\Sunday\Inject\ResourceInject;
 use BEAR\Resource\Annotation\Link;
@@ -13,7 +14,7 @@ class Post extends ResourceObject
 {
     use ResourceInject;
 
-    public $link = [
+    public $links = [
         'delete' => [Link::HREF => 'app://self/blog/posts']
     ];
 
@@ -41,7 +42,8 @@ class Post extends ResourceObject
             ->withQuery(['id' => $id])
             ->eager
             ->request();
-        $this->code = Code::NO_CONTENT;
+        $this->code = Code::SEE_OTHER;
+        $this->headers[Header::LOCATION] = '/blog/posts';
 
         return $this;
     }
