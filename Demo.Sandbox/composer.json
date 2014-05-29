@@ -8,7 +8,9 @@
     },
     "minimum-stability": "dev",
     "prefer-stable": true,
-    "autoload":{
-        "classmap": ["src/"]
+    "autoload": {
+        "psr-4": {
+            "Demo\\Sandbox\\": "Demo.Sandbox/"
+        }
     }
 }
