@@ -1,21 +1,20 @@
 <?php
+
 namespace Demo\Sandbox\Resource\App\Blog;
 
 use BEAR\Package\Module\Database\Dbal\Setter\DbSetterTrait;
 use BEAR\Resource\Header;
 use BEAR\Resource\ResourceObject;
 use BEAR\Resource\Code;
-use BEAR\Resource\Link;
+use BEAR\Resource\Annotation\Link;
+use PDO;
 use BEAR\Sunday\Annotation\Cache;
 use BEAR\Sunday\Annotation\CacheUpdate;
 use BEAR\Sunday\Annotation\Db;
 use BEAR\Sunday\Annotation\Time;
 use BEAR\Sunday\Annotation\Transactional;
-use PDO;
 
 /**
- * Posts
- *
  * @Db
  */
 class Posts extends ResourceObject
@@ -23,13 +22,12 @@ class Posts extends ResourceObject
     use DbSetterTrait;
 
     /**
+     * Current time
+     *
      * @var string
      */
     public $time;
 
-    /**
-     * @var array
-     */
     public $links = [
         'page_post' => [Link::HREF => 'page://self/blog/posts/post'],
         'page_item' => [Link::HREF => 'page://self/blog/posts/post{?id}', Link::TEMPLATED => true],
