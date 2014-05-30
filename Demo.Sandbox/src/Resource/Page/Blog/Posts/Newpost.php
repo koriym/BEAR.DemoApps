@@ -2,37 +2,31 @@
 
 namespace Demo\Sandbox\Resource\Page\Blog\Posts;
 
-use BEAR\Resource\ResourceObject as Page;
-use BEAR\Resource\Link;
-use BEAR\Sunday\Annotation\Form;
+use BEAR\Resource\ResourceObject;
+use BEAR\Resource\Annotation\Link;
+use BEAR\Sunday\Inject\AInject;
 use BEAR\Sunday\Inject\ResourceInject;
+use BEAR\Resource\Header;
+use BEAR\Sunday\Annotation\Form;
 
 /**
  * New post page
  */
-class Newpost extends Page
+class Newpost extends ResourceObject
 {
     use ResourceInject;
 
-    /**
-     * @var array
-     */
+    public $links = [
+        'back' => [Link::HREF => 'page://self/blog/posts'],
+        'created' => [Link::HREF => 'page://self/blog/posts/post{?id}', Link::TEMPLATED => true],
+        'create' => [Link::HREF => 'app://self/blog/posts']
+    ];
+
     public $body = [
         'errors' => ['title' => '', 'body' => ''],
-        'submit' => ['title' => '', 'body' => ''],
-        'code' => 200
+        'submit' => ['title' => '', 'body' => '']
     ];
 
-    /**
-     * @var array
-     */
-    public $links = [
-        'back' => [Link::HREF => 'page://self/blog/posts']
-    ];
-
-    /**
-     * @return Newpost
-     */
     public function onGet()
     {
         return $this;
@@ -46,11 +40,10 @@ class Newpost extends Page
      */
     public function onPost($title, $body)
     {
-        // create post
+        $uri = $this->links['create'][Link::HREF];
         $response = $this
             ->resource
-            ->post
-            ->uri('app://self/blog/posts')
+            ->uri($uri)
             ->withQuery(
                 ['title' => $title, 'body' => $body]
             )
@@ -58,7 +51,7 @@ class Newpost extends Page
             ->request();
 
         $this->code = $this['code'] = $response->code;
-        $this->links += $response->links;
+        $this['id'] = $response->headers[Header::X_ID];
 
         return $this;
     }

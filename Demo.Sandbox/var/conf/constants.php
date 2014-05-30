@@ -26,6 +26,7 @@ return [
         'slave_db' => $slaveDb,
     ],
     'dev' => [],
+    'api' => [],
     'test' => [],
     'stub' => [],
 ];
