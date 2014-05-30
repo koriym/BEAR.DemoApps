@@ -2,17 +2,19 @@
 
 namespace Demo\Sandbox\Resource\Page\Demo\Page\Redirect;
 
-use BEAR\Resource\ResourceObject as Page;
+use BEAR\Resource\Header;
+use BEAR\Resource\ResourceObject;
+use BEAR\Resource\Code;
 
 /**
  * Redirect page
  */
-class Index extends Page
+class Index extends ResourceObject
 {
     public function onGet()
     {
-        $this->code = 302;
-        $this->headers = ['Location' => '/'];
+        $this->code = Code::MOVED_PERMANENTLY;
+        $this->headers = [Header::LOCATION => '/'];
 
         return $this;
     }

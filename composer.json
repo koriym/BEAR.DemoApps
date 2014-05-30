@@ -1,4 +1,4 @@
-{
+	{
     "name": "bear/demo-apps",
     "description": "Demo.* applications for BEAR.Package",
     "keywords": [
@@ -11,9 +11,17 @@
             "email": "akihito.koriyama@gmail.com"
         }
     ],
-	"config": {
-	 	"vendor-dir": "apps"
-	 },
+    "autoload": {
+        "psr-4": {
+            "Demo\\Helloworld\\": "Demo.Helloworld/src",
+            "Demo\\Sandbox\\": "Demo.Sandbox/src"
+        }
+    },
     "require": {
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "0.1.x-dev"
+        }
     }
 }

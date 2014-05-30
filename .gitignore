@@ -1,4 +1,9 @@
 .idea
-buld
-
-/vendor/
+buld/
+tmp/
+build/
+xhprof_html/
+vendor/
+*.db
+*.log
+apps/

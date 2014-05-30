@@ -1,14 +1,9 @@
 <?php
 namespace Sandbox\tests\Resource\Page\Blog;
 
-use Doctrine\Common\Cache\ArrayCache;
-use Ray\Di\Injector;
-
 class PostsTest extends \PHPUnit_Extensions_Database_TestCase
 {
     /**
-     * Resource client
-     *
      * @var \BEAR\Resource\Resource
      */
     private $resource;
@@ -18,7 +13,7 @@ class PostsTest extends \PHPUnit_Extensions_Database_TestCase
      */
     public function getConnection()
     {
-        $pdo = require $GLOBALS['APP_DIR'] . '/tests/scripts/db.php';
+        $pdo = require $_ENV['APP_DIR'] . '/tests/scripts/db.php';
 
         return $this->createDefaultDBConnection($pdo, 'sq_lite');
     }
@@ -28,7 +23,7 @@ class PostsTest extends \PHPUnit_Extensions_Database_TestCase
      */
     public function getDataSet()
     {
-        return $this->createFlatXmlDataSet($GLOBALS['APP_DIR'] .'/tests/mock/seed.xml');
+        return $this->createFlatXmlDataSet($_ENV['APP_DIR'] .'/tests/mock/seed.xml');
     }
 
     protected function setUp()
@@ -37,72 +32,33 @@ class PostsTest extends \PHPUnit_Extensions_Database_TestCase
         $this->resource = clone $GLOBALS['RESOURCE'];
     }
 
-    /**
-     * page://self/blog/posts
-     *
-     * @test
-     */
-    public function resource()
+    public function testOnGet()
     {
-        // resource request
         $page = $this->resource->get->uri('page://self/blog/posts')->eager->request();
         $this->assertSame(200, $page->code);
 
         return $page;
     }
 
+
     /**
-     * Has page app resource ?
-     *
-     * @depends resource
+     * @depends testOnGet
      */
-    public function test_Graph($page)
+    public function testOnGetEmbedPosts($page)
     {
         $this->assertArrayHasKey('posts', $page->body);
-    }
-
-    /**
-     * Is app resource request?
-     *
-     * @depends resource
-     */
-    public function test_AppResourceType($page)
-    {
         $this->assertInstanceOf('BEAR\Resource\Request', $page->body['posts']);
+        $this->assertSame('app://self/blog/posts', $page->body['posts']->toUri());
     }
 
     /**
-     * Is valid app resource uri ?
-     *
-     * @depends resource
+     * @depends testOnGet
      */
-    public function test_AppResourceUri($page)
-    {
-        $posts = $page->body['posts'];
-        /** @var $posts \BEAR\Resource\Request */
-        $this->assertSame('app://self/blog/posts', $posts->toUri());
-    }
-
-    /**
-     * Renderable ?
-     *
-     * @depends resource
-     */
-    public function test_Render($page)
+    public function testOnGetRendering($page)
     {
         $html = (string)$page;
         $this->assertInternalType('string', $html);
-    }
-
-    /**
-     * Html Rendered ?
-     *
-     * @depends resource
-     */
-    public function test_RenderHtml($page)
-    {
-        $html = (string)$page;
         $this->assertContains('</html>', $html);
+        $this->assertContains('<a href="/blog/posts/post?id=1">title1</a>', $html);
     }
-
 }

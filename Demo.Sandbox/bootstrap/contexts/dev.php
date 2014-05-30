@@ -18,10 +18,11 @@ use BEAR\Package\Dev\Dev;
  * @global $context string
  */
 
+error_log(__DIR__);
 ob_start();
 
 // Serve file as is in built in wev-server.
-if (php_sapi_name() === 'cli-server' && preg_match('/\.(?:png|jpg|jpeg|gif|js|txt)$/', $_SERVER["REQUEST_URI"])) {
+if (php_sapi_name() === 'cli-server' && preg_match('/\.(?:png|jpg|jpeg|gif|js|txt|php)$/', $_SERVER["REQUEST_URI"])) {
     return false;
 }
 
@@ -37,11 +38,13 @@ $appDir = dirname(dirname(__DIR__));
 // the dev instance provides debugging tools and defaults to help you the development of your application.
 $context = 'dev';
 $app = require $appDir . '/bootstrap/instance.php';
+
 /* @var $app \BEAR\Package\Provide\Application\AbstractApp */
 
 $devHtml = (new Dev)
     ->iniSet()
-    ->loadDevFunctions()
+    ->registerErrorHandler()
+    //->registerWhoopsErrorHandler()
     ->registerFatalErrorHandler()
     ->registerExceptionHandler("{$appDir}/var/log")
     ->registerSyntaxErrorEdit()
