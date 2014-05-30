@@ -82,7 +82,7 @@ class Posts extends ResourceObject
         //
         $lastId = $this->db->lastInsertId('id');
         $this->code = Code::CREATED;
-        $this->headers[Header::LOCATION] = "app://self/posts/post?id={$lastId}";
+        $this->headers[Header::LOCATION] = "app://self/blog/post?id={$lastId}";
         $this->headers[Header::X_ID] = $lastId;
 
         return $this;
