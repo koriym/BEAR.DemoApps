@@ -22,7 +22,7 @@ error_log(__DIR__);
 ob_start();
 
 // Serve file as is in built in wev-server.
-if (php_sapi_name() === 'cli-server' && preg_match('/\.(?:png|jpg|jpeg|gif|js|txt|php)$/', $_SERVER["REQUEST_URI"])) {
+if (php_sapi_name() === 'cli-server' && preg_match('/\.(?:png|jpg|jpeg|gif|js|txt)$/', $_SERVER["REQUEST_URI"])) {
     return false;
 }
 
