@@ -28,14 +28,19 @@ class BlogPost implements MethodInterceptor
      */
     public function invoke(MethodInvocation $invocation)
     {
-        // retrieve page and query
-        $args = $this->namedArgs->get($invocation);
+        // retrieve query (reference)
+        $args = $invocation->getArguments();
+        // retrieve page
         $page = $invocation->getThis();
 
+        // change values of query
         // strip tags
         foreach ($args as &$arg) {
-            strip_tags($arg);
+            $arg = strip_tags($arg);
         }
+
+        // retrieve named query. this is copy of values, not reference
+        $args = $this->namedArgs->get($invocation); // this is copy of args
 
         // required title
         if ($args['title'] === '') {
@@ -52,6 +57,9 @@ class BlogPost implements MethodInterceptor
             return $invocation->proceed();
         }
 
+        // on PUT we need id
+        $id = isset($args['id']) ? $args['id'] : null;
+
         // error, modify 'GET' page wih error message.
         $page['errors'] = $this->errors;
         $page['submit'] = [
@@ -59,6 +67,6 @@ class BlogPost implements MethodInterceptor
             'body' => $args['body']
         ];
 
-        return $page->onGet();
+        return $page->onGet($id);
     }
 }
