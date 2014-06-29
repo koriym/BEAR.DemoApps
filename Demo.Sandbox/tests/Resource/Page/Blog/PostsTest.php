@@ -1,5 +1,6 @@
 <?php
-namespace Sandbox\tests\Resource\Page\Blog;
+
+namespace Demo\Sandbox\tests\Resource\Page\Blog;
 
 class PostsTest extends \PHPUnit_Extensions_Database_TestCase
 {

@@ -1,11 +1,11 @@
 <?php
-namespace Sandbox;
 
+namespace Demo\Sandbox\tests\Resource\Page;
 
 use Doctrine\Common\Cache\FilesystemCache;
 use Ray\Di\Injector;
 
-class PageIndexTest extends \PHPUnit_Framework_TestCase
+class IndexTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * Resource client

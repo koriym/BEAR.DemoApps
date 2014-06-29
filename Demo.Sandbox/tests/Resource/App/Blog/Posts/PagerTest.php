@@ -1,6 +1,6 @@
 <?php
 
-namespace Sandbox\tests\Resource\App\Blog\Posts;
+namespace Demo\Sandbox\tests\Resource\App\Blog\Posts;
 
 class PagerTest extends \PHPUnit_Framework_TestCase
 {
