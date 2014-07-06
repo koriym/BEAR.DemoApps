@@ -8,42 +8,34 @@
         URL:{$url}<br>
         Message:{$message}<br>
     {else}
-        <form action="/demo/form/auraform" method="POST" enctype="multipart/form-data">
-            <input name="_method" type="hidden" value="POST"/>
+        <form role="form" action="/demo/form/auraform" method="POST" enctype="multipart/form-data">
+            <input name="_method" type="hidden" value="POST">
 
-                <div class="control-group {if $form.name.error}error{/if}">
-                    <label class="control-label" for="title">Name</label>
-                    <div class="controls">
-                        {form type="field" name=$name}
-                        <p class="help-inline">{$form.name.error}</p>
-                    </div>
-                </div>
+            <div class="form-group {if $form.name.error}has-error{/if}">
+                <label class="control-label" for="name">Name</label>
+                {form type="field" name=$name}
+                <label class="control-label" for="name">{$form.name.error}</label>
+            </div>
 
-                <div class="control-group {if $form.email.error}error{/if}">
-                    <label class="control-label" for="title">Email</label>
-                    <div class="controls">
-                        {form type="field" name=$email}
-                        <p class="help-inline">{$form.email.error}</p>
-                    </div>
-                </div>
+            <div class="form-group {if $form.email.error}has-error{/if}">
+                <label class="control-label" for="email">Email</label>
+                {form type="field" name=$email}
+                <label class="control-label" for="email">{$form.email.error}</label>
+            </div>
 
-                <div class="control-group {if $form.url.error}error{/if}">
-                    <label class="control-label" for="title">URL</label>
-                    <div class="controls">
-                        {form type="field" name=$url}
-                        <p class="help-inline">{$form.url.error}</p>
-                    </div>
-                </div>
+            <div class="form-group {if $form.url.error}has-error{/if}">
+                <label class="control-label" for="url">URL</label>
+                {form type="field" name=$url}
+                <label class="control-label" for="url">{$form.url.error}</label>
+            </div>
 
-                <div class="control-group {if $form.message.error}error{/if}">
-                    <label class="control-label" for="title">Message</label>
-                    <div class="controls">
-                        {form type="field" name=$message}
-                        <p class="help-inline">{$form.message.error}</p>
-                    </div>
-                </div>
+            <div class="form-group {if $form.message.error}has-error{/if}">
+                <label class="control-label" for="message">Message</label>
+                {form type="field" name=$message}
+                <label class="control-label" for="message">{$form.message.error}</label>
+            </div>
 
-            <input type="submit" name="submit" value="send" />
+            <input type="submit" name="submit" value="send">
         </form>
     {/if}
 {/block}
