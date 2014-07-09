@@ -10,6 +10,7 @@
     {else}
         <form role="form" action="/demo/form/auraform" method="POST" enctype="multipart/form-data">
             <input name="_method" type="hidden" value="POST">
+            {form hint=$form.__csrf_token.hint}
 
             <div class="form-group {if $form.name.error}has-error{/if}">
                 <label class="control-label" for="name">Name</label>

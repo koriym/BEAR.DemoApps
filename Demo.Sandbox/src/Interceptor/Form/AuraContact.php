@@ -8,6 +8,8 @@ use Aura\Input\FilterInterface;
 use Ray\Di\Di\Inject;
 use Ray\Di\Di\Named;
 use BEAR\Package\Module\Form\AuraForm\AuraFormTrait;
+use Aura\Session\Manager as Session;
+use BEAR\Package\Module\Session\AuraSession\AntiCsrf;
 
 /**
  * Aura.Input form
@@ -19,12 +21,30 @@ class AuraContact implements MethodInterceptor
     use AuraFormTrait;
 
     /**
+     * @var \Aura\Session\Manager
+     */
+    private $session;
+
+    /**
+     * @param \Aura\Session\Manager $session
+     *
+     * @Inject
+     */
+    public function setSession(Session $session)
+    {
+        $this->session = $session;
+    }
+
+    /**
      * Set form
      *
      * @param FilterInterface $filter
      */
     private function setForm(FilterInterface &$filter)
     {
+        $anti_csrf = new AntiCsrf($this->session->getCsrfToken());
+        $this->form->setAntiCsrf($anti_csrf);
+
         $this->form
             ->setField('name')
             ->setAttribs(
