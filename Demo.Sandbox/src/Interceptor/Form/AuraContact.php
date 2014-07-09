@@ -31,6 +31,7 @@ class AuraContact implements MethodInterceptor
                 [
                     'class' => 'form-control',
                     'id' => 'name',
+                    'name' => 'name',
                     'size' => 20,
                     'maxlength' => 20
                 ]
@@ -40,6 +41,8 @@ class AuraContact implements MethodInterceptor
             ->setAttribs(
                 [
                     'class' => 'form-control',
+                    'id' => 'email',
+                    'name' => 'email',
                     'size' => 20,
                     'maxlength' => 20,
                 ]
@@ -49,6 +52,8 @@ class AuraContact implements MethodInterceptor
             ->setAttribs(
                 [
                     'class' => 'form-control',
+                    'id' => 'url',
+                    'name' => 'url',
                     'size' => 20,
                     'maxlength' => 20,
                 ]
@@ -58,6 +63,8 @@ class AuraContact implements MethodInterceptor
             ->setAttribs(
                 [
                     'class' => 'form-control',
+                    'id' => 'message',
+                    'name' => 'message',
                     'cols' => 40,
                     'rows' => 5,
                 ]
