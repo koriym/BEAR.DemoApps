@@ -11,6 +11,7 @@
 namespace Demo\Sandbox;
 
 use BEAR\Package\Bootstrap\Bootstrap;
+use BEAR\Package\Module\Di\DiCompilerProvider;
 
 require_once __DIR__ . '/autoload.php';
 
