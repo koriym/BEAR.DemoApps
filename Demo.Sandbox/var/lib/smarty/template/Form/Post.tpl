@@ -2,7 +2,7 @@
 <form action="/blog/posts/newpost" method="POST" role="form">
     <div class="form-group {if $errors.title}has-error{/if}">
         <label for="title">Title</label>
-        <input type="text" id="title" name="title" value="{$submit.title}"class="form-control">
+        <input type="text" id="title" name="title" value="{$submit.title}" class="form-control">
         <label class="control-label" for="title">{$errors.title}</label>
     </div>
     <div class="form-group {if $errors.body}has-error{/if}">
