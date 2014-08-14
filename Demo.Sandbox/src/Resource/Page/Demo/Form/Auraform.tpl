@@ -36,7 +36,7 @@
                 <label class="control-label" for="message">{$form.message.error}</label>
             </div>
 
-            <input type="submit" name="submit" value="send">
+            <input type="submit" name="_submit" value="send">
         </form>
     {/if}
 {/block}
