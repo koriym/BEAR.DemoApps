@@ -5,6 +5,7 @@ namespace Demo\Sandbox\Module;
 use Ray\Di\AbstractModule;
 use BEAR\Package\Provide\TemplateEngine\Smarty\SmartyModule;
 use BEAR\Package\Module\Package\StandardPackageModule;
+use BEAR\Package\Module\Session\AuraSession\SessionModule;
 use Ray\Di\Di\Inject;
 use Ray\Di\Di\Named;
 use Ray\Di\Di\Scope;
@@ -38,6 +39,9 @@ class AppModule extends AbstractModule
         // override view package (default:Twig)
         $this->install(new SmartyModule($this));
 //        $this->install(new AuraViewModule($this));
+
+        // install aura.session
+        $this->install(new SessionModule());
 
         // install develop module
         if ($this->context === 'dev') {
