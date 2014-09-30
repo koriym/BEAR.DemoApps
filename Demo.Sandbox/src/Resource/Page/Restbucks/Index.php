@@ -9,6 +9,7 @@ use BEAR\Sunday\Inject\AInject;
 use BEAR\Sunday\Inject\ResourceInject;
 use RuntimeException;
 use Ray\Di\Di\Inject;
+use Ray\Di\Di\Named;
 
 /**
  * Restbucks order
@@ -32,6 +33,7 @@ class Index extends Page
      * @param \BEAR\Resource\LoggerInterface $logger
      *
      * @Inject
+     * @Named("resource_logger")
      */
     public function setResourceLogger(LoggerInterface $logger)
     {
