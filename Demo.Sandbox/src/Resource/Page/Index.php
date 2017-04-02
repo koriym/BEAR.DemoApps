@@ -41,10 +41,9 @@ class Index extends Page
      */
     public function __construct($packageDir)
     {
-        $bearVersion = file_get_contents($packageDir . '/VERSION');
         $this['version'] = [
             'php' => phpversion(),
-            'BEAR' => $bearVersion
+            'BEAR' => '0.x'
         ];
         $this['is_cli_server'] = (php_sapi_name() === 'cli-server');
     }
