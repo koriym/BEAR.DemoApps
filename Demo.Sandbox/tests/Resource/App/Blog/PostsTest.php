@@ -1,6 +1,6 @@
 <?php
 
-namespace Sandbox\tests\Resource\App\Blog;
+namespace Demo\Sandbox\tests\Resource\App\Blog;
 
 use BEAR\Resource\Code;
 use BEAR\Resource\Header;

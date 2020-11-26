@@ -1,7 +1,6 @@
 <?php
-namespace Sandbox\tests\Resource\App\First;
 
-use Ray\Di\Injector;
+namespace Demo\Sandbox\tests\Resource\App\First;
 
 class GreetingTest extends \PHPUnit_Framework_TestCase
 {
@@ -49,7 +48,7 @@ class GreetingTest extends \PHPUnit_Framework_TestCase
      * Renderable ?
      *
      * @depends resource
-     *          test
+     * @test
      */
     public function render($resource)
     {

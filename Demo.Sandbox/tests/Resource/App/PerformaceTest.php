@@ -1,5 +1,6 @@
 <?php
-namespace Sandbox\tests\Resource\App;
+
+namespace Demo\Sandbox\tests\Resource\App;
 
 use Ray\Di\Injector;
 
